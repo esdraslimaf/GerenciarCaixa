@@ -37,7 +37,7 @@ namespace GerenciarCaixa.Persistence.Migrations
                     b.Property<DateTimeOffset?>("DateUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<bool?>("Disponivel")
+                    b.Property<bool>("Disponivel")
                         .HasColumnType("bit");
 
                     b.Property<string>("IdentificaMesa")

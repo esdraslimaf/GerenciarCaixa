@@ -10,17 +10,20 @@ namespace GerenciarCaixa.Domain.Entities
     public sealed class Mesa:BaseEntity
     {
         public string IdentificaMesa { get; private set; }
-        public bool? Disponivel { get; private set; }
+        public bool Disponivel { get; private set; }
 
-        private Mesa() { }
-
-        public static Mesa Criar(string identificaMesa)
+        public Mesa()
         {
-            return new Mesa
+            
+        }
+        public Mesa(string identificaMesa, bool disponivel)
+        {
+            if (string.IsNullOrWhiteSpace(identificaMesa))
             {
-                IdentificaMesa = identificaMesa,
-                Disponivel = true
-            };
+                throw new ArgumentNullException(nameof(identificaMesa), "Identificação da mesa não pode ser nula ou vazia.");
+            }
+            this.IdentificaMesa = identificaMesa;
+            this.Disponivel = disponivel;
         }
 
         public void AtualizarMesa(string identificaMesa)

@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GerenciarCaixa.Application\GerenciarCaixa.Application.csproj" />
     <ProjectReference Include="..\GerenciarCaixa.Persistence\GerenciarCaixa.Persistence.csproj" />
   </ItemGroup>
 

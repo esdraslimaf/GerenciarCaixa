@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciarCaixa.Persistence.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20240926062845_inicial")]
-    partial class inicial
+    [Migration("20241229053240_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,7 +39,7 @@ namespace GerenciarCaixa.Persistence.Migrations
                     b.Property<DateTimeOffset?>("DateUpdated")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<bool?>("Disponivel")
+                    b.Property<bool>("Disponivel")
                         .HasColumnType("bit");
 
                     b.Property<string>("IdentificaMesa")

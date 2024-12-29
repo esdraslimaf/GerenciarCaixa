@@ -18,12 +18,19 @@ namespace GerenciarCaixa.Persistence.Repositories
         }
         public void Create(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(T entity)
         {
             throw new NotImplementedException();
+        }
+
+        public List<T> GetAll()
+        {  
+            var query = _context.Set<T>().AsQueryable();
+            return query.ToList();
         }
 
         public void Update(T entity)

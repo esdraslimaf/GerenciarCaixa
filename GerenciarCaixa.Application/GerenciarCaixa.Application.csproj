@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GerenciarCaixa.Domain\GerenciarCaixa.Domain.csproj" />
+    <ProjectReference Include="..\GerenciarCaixa.Persistence\GerenciarCaixa.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
 </Project>

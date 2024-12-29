@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GerenciarCaixa.Persistence.Migrations
 {
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace GerenciarCaixa.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdentificaMesa = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Disponivel = table.Column<bool>(type: "bit", nullable: true),
+                    Disponivel = table.Column<bool>(type: "bit", nullable: false),
                     DateCreated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     DateUpdated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     DateTimeDeleted = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
