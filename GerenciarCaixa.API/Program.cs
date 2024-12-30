@@ -2,6 +2,7 @@
 using GerenciarCaixa.Application.Mappings;
 using GerenciarCaixa.Application.Services;
 using GerenciarCaixa.Domain.Interfaces.Repositories;
+using GerenciarCaixa.Domain.Interfaces.Services;
 using GerenciarCaixa.Persistence.Context;
 using GerenciarCaixa.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,8 @@ namespace GerenciarCaixa.API
             builder.Services.AddDbContext<MyContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")));
             builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             builder.Services.AddScoped(typeof(IGenericService<,>), typeof(GenericService<,>));
+            builder.Services.AddScoped<IMesaService, MesaService>();
+            builder.Services.AddScoped<IMesaRepository, MesaRepository>();
             builder.Services.AddAutoMapper(typeof(MesaMappingProfile));
             
             var app = builder.Build();

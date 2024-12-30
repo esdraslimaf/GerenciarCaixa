@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Compile Remove="Entities\MesaDto.cs" />
-    <Compile Remove="Interfaces\Repositories\IMesaRepository.cs" />
   </ItemGroup>
 
 </Project>

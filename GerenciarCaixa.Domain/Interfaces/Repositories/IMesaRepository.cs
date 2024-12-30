@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace GerenciarCaixa.Domain.Interfaces.Repositories
 {
-    public interface IMesaRepository
+    public interface IMesaRepository:IBaseRepository<Mesa>
     {
-        void Create(Mesa entity);
-        void Update(Mesa entity);
-        void Delete(Mesa entity);
+        bool LiberarMesa(Guid id);
     }
 }

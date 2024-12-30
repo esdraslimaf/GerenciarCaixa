@@ -6,20 +6,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GerenciarCaixa.Domain.DTOs;
-using GerenciarCaixa.Domain.Interfaces.Services;
 
 namespace GerenciarCaixa.Persistence.Repositories
 {
-    public class MesaRepository:BaseRepository<Mesa>, IMesaRepository
+    public class MesaRepository : BaseRepository<Mesa>, IMesaRepository
     {
-        private IGenericService<CreateMesaDTO, Mesa> _service { get; set; }
-        public MesaRepository(MyContext context):base(context)
+        private MyContext _context;
+        public MesaRepository(MyContext context) : base(context)
         {
-            
+            _context = context;
         }
-        
-        
-        
+
+        public bool LiberarMesa(Guid id)
+        {
+            var mesa = _context.Mesas.Find(id);
+            if (mesa == null)
+            {
+                throw new Exception("Mesa não encontrada.");
+            }
+            mesa.LiberarMesa();
+            _context.SaveChanges();
+            return true;
+        }
     }
 }
