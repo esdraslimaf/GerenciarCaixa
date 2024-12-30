@@ -22,7 +22,45 @@ namespace GerenciarCaixa.Application.Services
         }
         public bool LiberarMesa(Guid id)
         {
-            return _mesaRepository.LiberarMesa(id);
+            var mesa = _mesaRepository.FindById(id);
+            if (mesa == null)
+            {
+                throw new Exception("Mesa não encontrada.");
+            }
+            if (mesa.Disponivel)
+            {
+                throw new Exception("A mesa já está livre.");
+            }
+            mesa.DateUpdated = DateTime.Now;
+            mesa.LiberarMesa();
+            _mesaRepository.SaveChanges(); 
+            return true;
         }
+
+        public bool OcuparMesa(Guid id)
+        {
+            var mesa = _mesaRepository.FindById(id);
+            if (mesa == null)
+            {
+                throw new Exception("Mesa não encontrada.");
+            }
+            if (!mesa.Disponivel)
+            {
+                throw new Exception("A mesa já está ocupada.");
+            }
+            mesa.DateUpdated = DateTime.Now;
+            mesa.OcuparMesa();
+            _mesaRepository.SaveChanges();
+            return true;
+        }
+
+        public IEnumerable<Mesa> BuscarPorEstado(bool estado)
+        {
+            var mesas = _mesaRepository.FindByState(estado);
+            if(mesas!=null) return mesas;
+            throw new Exception("Mesas não encontradas!");
+        }
+
+
     }
 }

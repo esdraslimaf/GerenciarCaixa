@@ -9,6 +9,7 @@ namespace GerenciarCaixa.Domain.Interfaces.Repositories
 {
     public interface IMesaRepository:IBaseRepository<Mesa>
     {
-        bool LiberarMesa(Guid id);
+        IEnumerable<Mesa> FindByState(bool estado);
+
     }
 }

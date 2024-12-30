@@ -9,7 +9,7 @@ namespace GerenciarCaixa.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MesaController:ControllerBase
+    public class MesaController : ControllerBase
     {
 
         public IMesaService _service { get; set; }
@@ -21,7 +21,7 @@ namespace GerenciarCaixa.API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-           return Ok(_service.GetAll());
+            return Ok(_service.GetAll());
         }
 
         [HttpPost]
@@ -34,6 +34,31 @@ namespace GerenciarCaixa.API.Controllers
         public IActionResult LiberarMesa(Guid id)
         {
             return Ok(_service.LiberarMesa(id));
+        }
+
+
+        [HttpGet("buscarporestado/{estado}")]
+        public IActionResult BuscarPorId(bool estado)
+        {
+            return Ok(_service.BuscarPorEstado(estado));
+        }
+
+        [HttpPatch("ocupar/{id}")]
+        public IActionResult OcuparMesa(Guid id)
+        {
+            bool result = _service.OcuparMesa(id);
+            if (result)
+            {
+                return Ok("Mesa ocupada com sucesso.");
+            }
+            return BadRequest("Não foi possível ocupar a mesa.");
+        }
+
+        [HttpDelete("removermesa/{id}")]
+        public IActionResult DeletarMesa(Guid id)
+        {
+            if (_service.Delete(id)) return Ok("Removido");
+            return Ok("Problema na remoção!");
         }
     }
 }

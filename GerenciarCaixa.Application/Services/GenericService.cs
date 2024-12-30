@@ -31,4 +31,10 @@ public class GenericService<TEntity, Dto> : IGenericService<TEntity, Dto>
         var dtos = _mapper.Map<List<Dto>>(lista);
         return dtos;
     }
+
+    public bool Delete(Guid id)
+    {
+        if(_repository.Delete(id)) return true;
+        return false;
+    }
 }

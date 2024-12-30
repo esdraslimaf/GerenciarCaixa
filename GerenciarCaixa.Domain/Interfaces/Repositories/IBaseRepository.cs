@@ -6,7 +6,10 @@ namespace GerenciarCaixa.Domain.Interfaces.Repositories
     {
         void Create(T entity);
         void Update(T entity);
-        void Delete(T entity);
+        bool Delete(Guid id);
         List<T> GetAll();
+        void SaveChanges();
+        T? FindById(Guid id);
+        bool Exists(Guid id);
     }
 }

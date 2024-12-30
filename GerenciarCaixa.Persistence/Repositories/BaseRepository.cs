@@ -22,9 +22,15 @@ namespace GerenciarCaixa.Persistence.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(T entity)
+        public bool Delete(Guid id)
         {
-            throw new NotImplementedException();
+            T UserDeletar = _context.Set<T>().Find(id);
+            if (UserDeletar != null) {
+                _context.Set<T>().Remove(UserDeletar);
+                    _context.SaveChanges();
+                return true;
+            }
+            else throw new Exception("Entidade não encontrada.");
         }
 
         public List<T> GetAll()
@@ -36,6 +42,22 @@ namespace GerenciarCaixa.Persistence.Repositories
         public void Update(T entity)
         {
             throw new NotImplementedException();
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges(); 
+        }
+
+        public T? FindById(Guid id)
+        {
+            return _context.Set<T>().Find(id);
+        }
+
+        public bool Exists(Guid id)
+        {
+            if (_context.Set<T>().Find(id) != null) return true;
+            return false;
         }
     }
 }

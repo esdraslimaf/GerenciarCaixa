@@ -6,4 +6,5 @@ public interface IGenericService<TEntity, Dto> where TEntity: class
 {
     Dto Add(Dto dto);
     List<Dto> GetAll();
+    bool Delete(Guid id);
 }

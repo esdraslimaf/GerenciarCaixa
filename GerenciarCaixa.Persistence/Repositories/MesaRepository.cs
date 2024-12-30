@@ -1,6 +1,7 @@
 ﻿using GerenciarCaixa.Domain.Entities;
 using GerenciarCaixa.Domain.Interfaces.Repositories;
 using GerenciarCaixa.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,21 +13,17 @@ namespace GerenciarCaixa.Persistence.Repositories
     public class MesaRepository : BaseRepository<Mesa>, IMesaRepository
     {
         private MyContext _context;
+        private DbSet<Mesa> _dbSet;
         public MesaRepository(MyContext context) : base(context)
         {
             _context = context;
+            _dbSet = _context.Set<Mesa>();
         }
 
-        public bool LiberarMesa(Guid id)
+        public IEnumerable<Mesa> FindByState(bool estado)
         {
-            var mesa = _context.Mesas.Find(id);
-            if (mesa == null)
-            {
-                throw new Exception("Mesa não encontrada.");
-            }
-            mesa.LiberarMesa();
-            _context.SaveChanges();
-            return true;
+            return _dbSet.Where(m => m.Disponivel == estado);
         }
+
     }
 }
