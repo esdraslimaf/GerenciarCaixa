@@ -4,12 +4,12 @@ namespace GerenciarCaixa.Domain.Interfaces.Repositories
 {
     public interface IBaseRepository<T> where T : BaseEntity
     {
-        void Create(T entity);
-        void Update(T entity);
-        bool Delete(Guid id);
-        List<T> GetAll();
-        void SaveChanges();
-        T? FindById(Guid id);
-        bool Exists(Guid id);
+        Task CreateAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task<bool> DeleteAsync(Guid id);
+        Task<List<T>> GetAllAsync();
+        Task SaveChangesAsync();
+        Task<T?> FindByIdAsync(Guid id);
+        Task<bool> ExistsAsync(Guid id);
     }
 }

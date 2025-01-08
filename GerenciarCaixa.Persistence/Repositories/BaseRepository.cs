@@ -1,6 +1,7 @@
 ﻿using GerenciarCaixa.Domain.Entities;
 using GerenciarCaixa.Domain.Interfaces.Repositories;
 using GerenciarCaixa.Persistence.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,52 +13,54 @@ namespace GerenciarCaixa.Persistence.Repositories
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         protected readonly MyContext _context;
+
         public BaseRepository(MyContext context)
         {
             _context = context;
         }
-        public void Create(T entity)
+
+        public async Task CreateAsync(T entity)
         {
-            _context.Set<T>().Add(entity);
-            _context.SaveChanges();
+            await _context.Set<T>().AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public bool Delete(Guid id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
-            T UserDeletar = _context.Set<T>().Find(id);
-            if (UserDeletar != null) {
-                _context.Set<T>().Remove(UserDeletar);
-                    _context.SaveChanges();
+            T? entityToDelete = await _context.Set<T>().FindAsync(id);
+            if (entityToDelete != null)
+            {
+                _context.Set<T>().Remove(entityToDelete);
+                await _context.SaveChangesAsync();
                 return true;
             }
             else throw new Exception("Entidade não encontrada.");
         }
 
-        public List<T> GetAll()
-        {  
-            var query = _context.Set<T>().AsQueryable();
-            return query.ToList();
+        public async Task<List<T>> GetAllAsync()
+        {
+            return await _context.Set<T>().ToListAsync();
         }
 
-        public void Update(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Update(entity);
+            await _context.SaveChangesAsync();
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges(); 
+            await _context.SaveChangesAsync();
         }
 
-        public T? FindById(Guid id)
+        public async Task<T?> FindByIdAsync(Guid id)
         {
-            return _context.Set<T>().Find(id);
+            return await _context.Set<T>().FindAsync(id);
         }
 
-        public bool Exists(Guid id)
+        public async Task<bool> ExistsAsync(Guid id)
         {
-            if (_context.Set<T>().Find(id) != null) return true;
-            return false;
+            return await _context.Set<T>().FindAsync(id) != null;
         }
     }
 }

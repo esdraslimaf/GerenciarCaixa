@@ -9,7 +9,7 @@ namespace GerenciarCaixa.Domain.Interfaces.Repositories
 {
     public interface IMesaRepository:IBaseRepository<Mesa>
     {
-        IEnumerable<Mesa> FindByState(bool estado);
+        Task<IEnumerable<Mesa>> FindByStateAsync(bool estado);
 
     }
 }

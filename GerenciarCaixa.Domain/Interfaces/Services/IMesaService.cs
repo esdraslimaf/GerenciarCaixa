@@ -11,8 +11,8 @@ namespace GerenciarCaixa.Domain.Interfaces.Services
 {
     public interface IMesaService:IGenericService<Mesa, MesaDTO>
     {
-        bool LiberarMesa(Guid id);
-        IEnumerable<Mesa> BuscarPorEstado(bool estado);
-        bool OcuparMesa(Guid id);
+        Task<bool> LiberarMesaAsync(Guid id);
+        Task<IEnumerable<Mesa>> BuscarPorEstadoAsync(bool estado);
+        Task<bool> OcuparMesaAsync(Guid id);
     }
 }

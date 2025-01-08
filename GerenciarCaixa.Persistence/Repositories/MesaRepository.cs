@@ -20,9 +20,9 @@ namespace GerenciarCaixa.Persistence.Repositories
             _dbSet = _context.Set<Mesa>();
         }
 
-        public IEnumerable<Mesa> FindByState(bool estado)
+        public async Task<IEnumerable<Mesa>> FindByStateAsync(bool estado)
         {
-            return _dbSet.Where(m => m.Disponivel == estado);
+            return await _dbSet.Where(m => m.Disponivel == estado).ToListAsync();
         }
 
     }

@@ -20,9 +20,9 @@ namespace GerenciarCaixa.Application.Services
         {
             _mesaRepository = mesaRepository; 
         }
-        public bool LiberarMesa(Guid id)
+        public async Task<bool> LiberarMesaAsync(Guid id)
         {
-            var mesa = _mesaRepository.FindById(id);
+            var mesa = await _mesaRepository.FindByIdAsync(id);
             if (mesa == null)
             {
                 throw new Exception("Mesa não encontrada.");
@@ -33,13 +33,13 @@ namespace GerenciarCaixa.Application.Services
             }
             mesa.DateUpdated = DateTime.Now;
             mesa.LiberarMesa();
-            _mesaRepository.SaveChanges(); 
+            await _mesaRepository.SaveChangesAsync(); 
             return true;
         }
 
-        public bool OcuparMesa(Guid id)
+        public async Task<bool> OcuparMesaAsync(Guid id)
         {
-            var mesa = _mesaRepository.FindById(id);
+            var mesa = await _mesaRepository.FindByIdAsync(id);
             if (mesa == null)
             {
                 throw new Exception("Mesa não encontrada.");
@@ -50,13 +50,13 @@ namespace GerenciarCaixa.Application.Services
             }
             mesa.DateUpdated = DateTime.Now;
             mesa.OcuparMesa();
-            _mesaRepository.SaveChanges();
+            await _mesaRepository.SaveChangesAsync();
             return true;
         }
 
-        public IEnumerable<Mesa> BuscarPorEstado(bool estado)
+        public async Task<IEnumerable<Mesa>> BuscarPorEstadoAsync(bool estado)
         {
-            var mesas = _mesaRepository.FindByState(estado);
+            var mesas = await _mesaRepository.FindByStateAsync(estado);
             if(mesas!=null) return mesas;
             throw new Exception("Mesas não encontradas!");
         }
