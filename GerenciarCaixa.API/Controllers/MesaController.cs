@@ -19,34 +19,34 @@ namespace GerenciarCaixa.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_service.GetAll());
+            return Ok(await _service.GetAllAsync());
         }
 
         [HttpPost]
-        public IActionResult AddMesa([FromBody] MesaDTO mesa)
+        public async Task<IActionResult> AddMesa([FromBody] MesaDTO mesa)
         {
-            return Ok(_service.Add(mesa));
+            return Ok(await _service.AddAsync(mesa));
         }
 
         [HttpPost("liberar")]
-        public IActionResult LiberarMesa(Guid id)
+        public async Task<IActionResult> LiberarMesa(Guid id)
         {
-            return Ok(_service.LiberarMesa(id));
+            return Ok(await _service.LiberarMesaAsync(id));
         }
 
 
         [HttpGet("buscarporestado/{estado}")]
-        public IActionResult BuscarPorId(bool estado)
+        public async Task<IActionResult> BuscarPorId(bool estado)
         {
-            return Ok(_service.BuscarPorEstado(estado));
+            return Ok(await _service.BuscarPorEstadoAsync(estado));
         }
 
         [HttpPatch("ocupar/{id}")]
-        public IActionResult OcuparMesa(Guid id)
+        public async Task<IActionResult> OcuparMesa(Guid id)
         {
-            bool result = _service.OcuparMesa(id);
+            bool result = await _service.OcuparMesaAsync(id);
             if (result)
             {
                 return Ok("Mesa ocupada com sucesso.");
@@ -55,9 +55,9 @@ namespace GerenciarCaixa.API.Controllers
         }
 
         [HttpDelete("removermesa/{id}")]
-        public IActionResult DeletarMesa(Guid id)
+        public async Task<IActionResult> DeletarMesa(Guid id)
         {
-            if (_service.Delete(id)) return Ok("Removido");
+            if (await _service.DeleteAsync(id)) return Ok("Removido");
             return Ok("Problema na remoção!");
         }
     }
