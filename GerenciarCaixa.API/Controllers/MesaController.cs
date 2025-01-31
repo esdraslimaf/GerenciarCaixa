@@ -38,7 +38,7 @@ namespace GerenciarCaixa.API.Controllers
 
 
         [HttpGet("buscarporestado/{estado}")]
-        public async Task<IActionResult> BuscarPorId(bool estado)
+        public async Task<IActionResult> BuscarPorId([FromQuery]bool estado)
         {
             return Ok(await _service.BuscarPorEstadoAsync(estado));
         }
