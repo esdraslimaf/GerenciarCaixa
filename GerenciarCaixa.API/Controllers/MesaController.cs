@@ -24,6 +24,13 @@ namespace GerenciarCaixa.API.Controllers
             return Ok(await _service.GetAllAsync());
         }
 
+        [HttpGet("obter")]
+        public async Task<IActionResult> ObterTodos()
+        {
+            var produtos = await _service.ObterTodosAsyncViaDapper("mesas");
+            return Ok(produtos);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddMesa([FromBody] MesaDTO mesa)
         {

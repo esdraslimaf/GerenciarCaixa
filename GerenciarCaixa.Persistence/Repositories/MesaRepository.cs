@@ -14,7 +14,7 @@ namespace GerenciarCaixa.Persistence.Repositories
     {
         private MyContext _context;
         private DbSet<Mesa> _dbSet;
-        public MesaRepository(MyContext context) : base(context)
+        public MesaRepository(MyContext context, DbConnectionFactory dbConnectionFactory) : base(context, dbConnectionFactory)
         {
             _context = context;
             _dbSet = _context.Set<Mesa>();

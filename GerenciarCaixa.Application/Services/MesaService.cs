@@ -16,9 +16,9 @@ namespace GerenciarCaixa.Application.Services
         private readonly IMesaRepository _mesaRepository;
 
         public MesaService(IMesaRepository mesaRepository, IMapper mapper)
-            : base(mesaRepository, mapper) 
+            : base(mesaRepository, mapper)
         {
-            _mesaRepository = mesaRepository; 
+            _mesaRepository = mesaRepository;
         }
         public async Task<bool> LiberarMesaAsync(Guid id)
         {
@@ -33,7 +33,7 @@ namespace GerenciarCaixa.Application.Services
             }
             mesa.DateUpdated = DateTime.Now;
             mesa.LiberarMesa();
-            await _mesaRepository.SaveChangesAsync(); 
+            await _mesaRepository.SaveChangesAsync();
             return true;
         }
 
@@ -57,10 +57,17 @@ namespace GerenciarCaixa.Application.Services
         public async Task<IEnumerable<Mesa>> BuscarPorEstadoAsync(bool estado)
         {
             var mesas = await _mesaRepository.FindByStateAsync(estado);
-            if(mesas!=null) return mesas;
+            if (mesas != null) return mesas;
             throw new Exception("Mesas não encontradas!");
         }
 
-
-    }
+        public Task<IEnumerable<Mesa>> ObterTodosAsyncViaDapper(string tipo)
+        {
+            return _mesaRepository.ObterTodosAsyncViaDapper(tipo);
+        }
 }
+}
+
+
+    
+

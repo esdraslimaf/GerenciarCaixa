@@ -11,5 +11,6 @@ namespace GerenciarCaixa.Domain.Interfaces.Repositories
         Task SaveChangesAsync();
         Task<T?> FindByIdAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
+        Task<IEnumerable<T>> ObterTodosAsyncViaDapper(string tipo);
     }
 }

@@ -12,6 +12,7 @@ namespace GerenciarCaixa.Domain.Entities
         public string IdentificaMesa { get; private set; }
         public bool Disponivel { get; private set; }
 
+        public Mesa() { }
         public Mesa(string identificaMesa, bool disponivel)
         {
             if (string.IsNullOrWhiteSpace(identificaMesa))

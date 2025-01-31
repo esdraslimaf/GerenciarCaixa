@@ -1,4 +1,5 @@
-﻿using GerenciarCaixa.Domain.Entities;
+﻿using Dapper;
+using GerenciarCaixa.Domain.Entities;
 using GerenciarCaixa.Domain.Interfaces.Repositories;
 using GerenciarCaixa.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,13 @@ namespace GerenciarCaixa.Persistence.Repositories
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
         protected readonly MyContext _context;
+        private readonly DbConnectionFactory _dbConnectionFactory;
+        //string nomeDoTipo = typeof(T).Name;
+        public BaseRepository(MyContext context, DbConnectionFactory dbConnectionFactory)
+        {
+            _context = context;
+            _dbConnectionFactory = dbConnectionFactory;
+        }
 
         public BaseRepository(MyContext context)
         {
@@ -61,6 +69,15 @@ namespace GerenciarCaixa.Persistence.Repositories
         public async Task<bool> ExistsAsync(Guid id)
         {
             return await _context.Set<T>().FindAsync(id) != null;
+        }
+
+        public async Task<IEnumerable<T>> ObterTodosAsyncViaDapper(string tipoQuery)
+        {
+            using (var connection = _dbConnectionFactory.CreateConnection())
+            {
+                var query = $"SELECT * FROM {tipoQuery}";
+                return await connection.QueryAsync<T>(query);
+            }
         }
     }
 }

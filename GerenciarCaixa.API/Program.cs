@@ -6,6 +6,7 @@ using GerenciarCaixa.Domain.Interfaces.Services;
 using GerenciarCaixa.Persistence.Context;
 using GerenciarCaixa.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace GerenciarCaixa.API
 {
@@ -27,7 +28,15 @@ namespace GerenciarCaixa.API
             builder.Services.AddScoped<IMesaService, MesaService>();
             builder.Services.AddScoped<IMesaRepository, MesaRepository>();
             builder.Services.AddAutoMapper(typeof(MesaMappingProfile));
-            
+
+            builder.Services.AddScoped<DbConnectionFactory>(provider =>
+            {
+                var configuration = provider.GetRequiredService<IConfiguration>();
+                var connectionString = configuration.GetConnectionString("DataBase");
+                return new DbConnectionFactory(connectionString);
+            });
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

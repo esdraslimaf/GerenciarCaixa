@@ -14,5 +14,6 @@ namespace GerenciarCaixa.Domain.Interfaces.Services
         Task<bool> LiberarMesaAsync(Guid id);
         Task<IEnumerable<Mesa>> BuscarPorEstadoAsync(bool estado);
         Task<bool> OcuparMesaAsync(Guid id);
+        Task<IEnumerable<Mesa>> ObterTodosAsyncViaDapper(string tipo);
     }
 }
